@@ -1,6 +1,6 @@
-default: run
+default: test
 
-run:
+test:
 	@# Use CURDIR in Make instead of PWD
 	@docker run --rm \
   -v "${CURDIR}":"${CURDIR}" \
