@@ -386,7 +386,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
         # Veto some imports
         vetoed_imports = ["import aloha.template_files.wavefunctions as wavefunctions"]
         python_imports = [pi for pi in python_imports if pi not in vetoed_imports]
-        python_imports.insert(0, "import wavefunctions")
+        python_imports.insert(0, "from model import wavefunctions")
 
         aloha_output = open(pjoin(self.dir_path, "aloha_methods.py"), "w")
         aloha_output.write("from __future__ import division\n")
