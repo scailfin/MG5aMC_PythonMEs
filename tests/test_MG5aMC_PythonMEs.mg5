@@ -5,5 +5,4 @@ generate e+ e- > ud udx v @1
 add process mu+ mu- > ud udx @2
 !rm -rf MG5aMC_PythonMEs_output_example
 output Python MG5aMC_PythonMEs_output_example
-# Error at next line: Looking for wavefunctions
 !cd MG5aMC_PythonMEs_output_example && ./check_sa.py
