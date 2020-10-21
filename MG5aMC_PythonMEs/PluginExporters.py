@@ -37,7 +37,7 @@ import madgraph.iolibs.helas_call_writers as helas_call_writers
 
 logger = logging.getLogger('MG5aMC_PythonMEs.MEExporter')
 
-pjoin = os.path.join 
+pjoin = os.path.join
 
 
 class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
@@ -51,7 +51,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
                  "complex": "complex"}
 
     # Regular expressions for cleaning of lines from Aloha files
-    compiler_option_re = None 
+    compiler_option_re = None
     namespace_re = None
 
     slha_to_depend = {('SMINPUTS', (3,)): ('aS',),
@@ -92,7 +92,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
         self.coups_indep = []  # base_objects.ModelVariable
         self.params_dep = []   # base_objects.ModelVariable
         self.params_indep = [] # base_objects.ModelVariable
-        self.p_to_cpp = None 
+        self.p_to_cpp = None
 
         # Prepare parameters and couplings for writeout in C++
         self.prepare_parameters()
@@ -159,7 +159,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
                                    base_objects.ModelVariable(param.name,
                                                    expression,
                                                               'real'))
-            
+
     def prepare_couplings(self, wanted_couplings = []):
         """Extract the couplings from the model, and store them in
         the two lists coups_indep and coups_dep"""
@@ -192,7 +192,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
     # Routines for writing the parameter files
 
     def write_parameter_class_files(self):
-        """Generate the python model parameters 
+        """Generate the python model parameters
         which have the parameters and couplings for the model."""
 
         parameters_file_path = pjoin(self.dir_path,'parameters.py')
@@ -249,7 +249,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
 
 
         file_py = self.read_template_file(self.param_template_py) % replace_dict
-        
+
         return file_py
 
     def write_parameters(self, params, indent=8):
@@ -260,7 +260,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
         for param in params:
             # Not needed in Python, but kept for potential future use
             if param.type == 'real':
-                res_strings.append('%sself.%s = %s(%s.real)'%(' '*indent, param.name, self.type_dict[param.type], param.name))                
+                res_strings.append('%sself.%s = %s(%s.real)'%(' '*indent, param.name, self.type_dict[param.type], param.name))
             else:
                 res_strings.append('%sself.%s = %s(%s)'%(' '*indent, param.name, self.type_dict[param.type], param.name))
 
@@ -276,7 +276,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
             res_strings.append("%s%s" % (' '*indent, param.expr) )
 
         # Correct width sign for Majorana particles (where the width
-        # and mass need to have the same sign)        
+        # and mass need to have the same sign)
         for particle in self.model.get('particles'):
             if particle.is_fermion() and particle.get('self_antipart') and \
                    particle.get('width').lower() != 'zero':
@@ -294,22 +294,22 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
         res_strings = []
         for param in params:
             res_strings.append("%sres.append('{:<20s} = {:<20.16e}'.format('%s',self.%s))" % (' '*indent, param.name, param.name))
- 
+
         return "\n".join(res_strings)
 
     # Routines for writing the ALOHA files
 
     def write_aloha_routines(self):
         """Generate the python aloha routines"""
-       
+
 
         self.aloha_model.add_Lorentz_object(self.model.get('lorentz'))
         self.aloha_model.compute_subset(self.wanted_lorentz)
         # Write out the aloha routines in Python
         aloha_routines = []
-        
+
         # First add the default external wavefunction routines
-        wavefunction_routines = open(pjoin(MG5DIR,'aloha','template_files','wavefunctions.py'),'r').read() 
+        wavefunction_routines = open(pjoin(MG5DIR,'aloha','template_files','wavefunctions.py'),'r').read()
         open(pjoin(self.dir_path,'wavefunctions.py'),'w').write(
             'from __future__ import division\n'+wavefunction_routines)
 
@@ -317,7 +317,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
 
         # Now write the process-depenent Feynman rules ones
         for routine in self.aloha_model.values():
-            aloha_routines.append(routine.write(output_dir = None, 
+            aloha_routines.append(routine.write(output_dir = None,
                                                 mode='mg5',
                                                 language = 'Python'))
 
@@ -338,7 +338,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
                     new_aloha_routine.append(line)
             new_aloha_routines.append('\n'.join(new_aloha_routine))
         aloha_routines = new_aloha_routines
-       
+
         # Veto some imports
         vetoed_imports = ['import aloha.template_files.wavefunctions as wavefunctions']
         python_imports = [pi for pi in python_imports if pi not in vetoed_imports]
@@ -361,7 +361,7 @@ class UFOModelConverterPython(export_cpp.UFOModelConverterCPP):
     @classmethod
     def read_template_file(cls, filename, classpath=False):
         """Open a template file and return the contents."""
-         
+
         return open(pjoin(plugin_path,'templates',filename),'r').read()
 
 class ProcessOutputPython(export_v4.ProcessExporterFortranSA):
@@ -409,7 +409,7 @@ class PythonMEExporter(export_python.ProcessExporterPython):
             # Extract process info lines for all processes
             process_lines = self.get_process_info_lines(matrix_element)
             replace_dict['process_lines'] = process_lines
-        
+
             # Extract ngraphs
             ngraphs = matrix_element.get_number_of_amplitudes()
             replace_dict['ngraphs'] = ngraphs
@@ -465,7 +465,7 @@ class PythonMEExporter(export_python.ProcessExporterPython):
     def get_external_masses(self, matrix_element):
         """ Return a tuple of the form (initial_masses, final_masses)."""
 
-        
+
         proc_legs = matrix_element.get('processes')[0].get('legs')
 
         initial_masses = []
@@ -475,7 +475,7 @@ class PythonMEExporter(export_python.ProcessExporterPython):
                 initial_masses.append( self.model.get_particle(leg.get('id')).get('mass') )
             else:
                 final_masses.append( self.model.get_particle(leg.get('id')).get('mass') )
-        
+
 
         return '( (%s), (%s) )'%(
             ', '.join('model.%s'%mass for mass in initial_masses),
@@ -488,8 +488,8 @@ class PythonMEExporter(export_python.ProcessExporterPython):
 
         # Get all masses and widths used
         if aloha.complex_mass:
-            parameters = [(wf.get('mass') == 'ZERO' or wf.get('width')=='ZERO') 
-                          and wf.get('mass') or 'CMASS_%s' % wf.get('mass') 
+            parameters = [(wf.get('mass') == 'ZERO' or wf.get('width')=='ZERO')
+                          and wf.get('mass') or 'CMASS_%s' % wf.get('mass')
                           for wf in \
                           matrix_element.get_all_wavefunctions()]
             parameters += [wf.get('mass') for wf in \
@@ -505,12 +505,12 @@ class PythonMEExporter(export_python.ProcessExporterPython):
 
         # Get all couplings used
 
-        
+
         couplings = list(set([c.replace('-', '') for func \
                               in matrix_element.get_all_wavefunctions() + \
                               matrix_element.get_all_amplitudes() for c in func.get('coupling')
                               if func.get('mothers') ]))
-        
+
         return "\n        ".join([\
                          "%(param)s = model.%(param)s"\
                          % {"param": param} for param in parameters]) + \
@@ -519,7 +519,7 @@ class PythonMEExporter(export_python.ProcessExporterPython):
                               % {"coup": coup} for coup in couplings])
 
 class PluginProcessExporterPython(object):
-   
+
     exporter = 'v4'
     grouped_mode = False
 
@@ -541,8 +541,8 @@ import os
 root_path = os.path.dirname(os.path.realpath( __file__ ))
 sys.path.insert(0, root_path)
 """)
-        
-        shutil.copytree( pjoin(plugin_path, 'templates','phase_space_generator'), 
+
+        shutil.copytree( pjoin(plugin_path, 'templates','phase_space_generator'),
                      pjoin(self.export_dir,'phase_space_generator') )
         os.makedirs(pjoin(self.export_dir, 'processes'))
         open(pjoin(self.export_dir,'processes','__init__.py'),'w')
@@ -550,7 +550,7 @@ sys.path.insert(0, root_path)
         # First add common imports
         all_processes.write('from __future__ import division\n')
         all_processes.write('from model.aloha_methods import *\n')
-        all_processes.write('from model.wavefunctions import *\n')        
+        all_processes.write('from model.wavefunctions import *\n')
         all_processes.close()
 
         self.helas_call_writers = helas_call_writers
@@ -559,7 +559,7 @@ sys.path.insert(0, root_path)
         logger.info("Now generating Python output for %s"%(
                 matrix_element.get('processes')[0].nice_string().replace('Process','process')))
         exporter = self.MEExporter(matrix_element, self.helas_call_writers)
-        
+
         try:
             matrix_methods = exporter.get_python_matrix_methods(gauge_check=False)
             assert(len(matrix_methods)==1)
@@ -569,7 +569,7 @@ sys.path.insert(0, root_path)
 
         self.all_MEs.extend(['Matrix_%s'%key for key in matrix_methods])
 
-        all_processes = open(pjoin(self.export_dir, 'processes','all_processes.py'),'a')                            
+        all_processes = open(pjoin(self.export_dir, 'processes','all_processes.py'),'a')
         all_processes.write('\n'.join(matrix_methods.values()))
         all_processes.write('\n')
         all_processes.close()
@@ -608,23 +608,22 @@ class ProcessOutputTF(ProcessOutputPython):
     output = 'dir'
 
 class MEExporterTF(PythonMEExporter):
-    matrix_method_template = 'matrix_method_TF.py'    
+    matrix_method_template = 'matrix_method_TF.py'
     # Specialisation for TF output to be implemented here
     pass
 
 class UFOModelConverterTF(UFOModelConverterPython):
-    param_template_py = 'model_template_TF.py'    
+    param_template_py = 'model_template_TF.py'
     # Specialisation for TF output to be implemented here
-    pass 
+    pass
 
 class PluginProcessExporterTF(PluginProcessExporterPython):
     MEExporter=MEExporterTF
     UFOModelConverter=UFOModelConverterTF
-    check_sa_template = 'check_sa_TF.py'    
+    check_sa_template = 'check_sa_TF.py'
     # Specialisation for TF output to be implemented here
     pass
 
 class UFOHelasCallWriterTF(helas_call_writers.PythonUFOHelasCallWriter):
-    # Specialisation for TF output to be implemented here    
+    # Specialisation for TF output to be implemented here
     pass
-
