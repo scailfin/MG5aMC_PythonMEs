@@ -6,7 +6,7 @@ test:
   -v "${CURDIR}":"${CURDIR}" \
   -w "${CURDIR}" \
   scailfin/madgraph5-amc-nlo:mg5_amc2.8.1 \
-	"bash tests/run.sh"
+	"bash tests/test.sh"
 
 clean:
 	@docker run --rm \
