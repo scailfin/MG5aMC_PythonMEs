@@ -11,6 +11,12 @@ Copy the `MG5aMC_PythonMEs` directory into the `PLUGIN` folder located in the ro
 cp -r MG5aMC_PythonMEs <MG5aMC_root_dir>/PLUGIN/
 ```
 
+This can be done by simply just running the Python installer
+
+```
+$ python install.py
+```
+
 The `MG5aMC` example script `tests/test_MG5aMC_PythonMEs.mg5` can then simply be run as follows (from within the root directory of `MG5aMC`):
 
 ```
