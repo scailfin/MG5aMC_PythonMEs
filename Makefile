@@ -27,3 +27,9 @@ sandbox:
   -v "${CURDIR}":"${CURDIR}" \
   -w "${CURDIR}" \
   scailfin/madgraph5-amc-nlo:mg5_amc2.8.1
+
+docker-image:
+	docker build . \
+	-f docker/Dockerfile \
+	--build-arg BASE_IMAGE=scailfin/madgraph5-amc-nlo:mg5_amc2.8.1 \
+	-t scailfin/mg5amc_pythonmes:debug-local
