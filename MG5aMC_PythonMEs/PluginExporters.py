@@ -563,7 +563,7 @@ sys.path.insert(0, root_path)
         try:
             matrix_methods = exporter.get_python_matrix_methods(gauge_check=False)
             assert(len(matrix_methods)==1)
-        except helas_call_writers.HelasWriterError, error:
+        except helas_call_writers.HelasWriterError as error:
             logger.critical(error)
             raise MadGraph5Error("Error when generation python matrix_element_methods.")
 
