@@ -1,7 +1,8 @@
 ## import the required files
 import os
 import sys
-root_path = os.path.split(os.path.dirname(os.path.realpath( __file__ )))[0]
+
+root_path = os.path.split(os.path.dirname(os.path.realpath(__file__)))[0]
 sys.path.insert(0, root_path)
 
 import MG5aMC_PythonMEs.PluginInterface as PluginInterface
@@ -15,10 +16,10 @@ import MG5aMC_PythonMEs.PluginExporters as PluginExporters
 # 1. Define new output mode
 #    example: new_output = {'myformat': MYCLASS}
 #    madgraph will then allow the command "output myformat PATH"
-#    MYCLASS should inherated of the class madgraph.iolibs.export_v4.VirtualExporter 
+#    MYCLASS should inherated of the class madgraph.iolibs.export_v4.VirtualExporter
 new_output = {
-    'Python': PluginExporters.ProcessOutputPython,
-    'TF' : PluginExporters.ProcessOutputTF
+    "Python": PluginExporters.ProcessOutputPython,
+    "TF": PluginExporters.ProcessOutputTF,
 }
 
 # 2. Define new way to handle the cluster.
@@ -31,12 +32,12 @@ new_cluster = {}
 #    This can be activated via ./bin/mg5_aMC --mode=PLUGINNAME
 ## Put None if no dedicated command are required
 new_interface = PluginInterface.MG5aMC_PythonMEsInterface
- 
- 
+
+
 ########################## CONTROL VARIABLE ####################################
-__author__ = 'Valentin Hirschi'
-__email__ = 'valentin.hirschi@gmail.com'
-__version__ = (1,0,0)
-minimal_mg5amcnlo_version = (2,6,6) 
-maximal_mg5amcnlo_version = (1000,1000,1000)
-latest_validated_version = (2,6,6)
+__author__ = "Valentin Hirschi"
+__email__ = "valentin.hirschi@gmail.com"
+__version__ = (1, 0, 0)
+minimal_mg5amcnlo_version = (2, 6, 6)
+maximal_mg5amcnlo_version = (1000, 1000, 1000)
+latest_validated_version = (2, 6, 6)
