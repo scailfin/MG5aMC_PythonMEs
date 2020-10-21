@@ -1,4 +1,3 @@
-# This model parameters implementation is specialised for the TF output
 %(info_lines)s
 
 import cmath
@@ -24,10 +23,10 @@ class ModelParameters(object):
 
     def __init__(self, param_card=None):
         """ Instantiates using default value or the path of a SLHA param card."""
-       
+
         # Param card accessor
         slha = ParamCard(param_card)
-        
+
         self.ZERO = 0.
 
         # Computing independent parameters
@@ -56,7 +55,7 @@ class ModelParameters(object):
 
     def __str__(self):
         """ Print all parameters contained in this model."""
-    
+
         res = ['>>> Model %(model_name)s <<<']
         res.append('')
         res.append('Independent parameters:')
@@ -86,5 +85,3 @@ class ModelParameters(object):
 
 
         return '\n'.join(res)
-
-
