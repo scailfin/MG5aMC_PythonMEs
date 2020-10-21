@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  # Run weekly on Sunday at 0:01 UTC
+  schedule:
+  - cron:  '1 0 * * 0'
+  workflow_dispatch:
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    container: scailfin/madgraph5-amc-nlo:mg5_amc2.8.1
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install plugin
+      run: |
+        python install.py
+    - name: Test plugin
+      run: |
+        mg5_aMC --mode=MG5aMC_PythonMEs tests/test_MG5aMC_PythonMEs.mg5
+        mg5_aMC --mode=MG5aMC_PythonMEs tests/test_MG5aMC_TFMEs.mg5
+        ls -lhtra
