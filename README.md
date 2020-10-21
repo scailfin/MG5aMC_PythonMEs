@@ -1,5 +1,7 @@
 # MG5aMC_PythonMEs
 
+[![GitHub Actions Status: CI](https://github.com/scailfin/MG5aMC_PythonMEs/workflows/CI/badge.svg?branch=master)](https://github.com/scailfin/MG5aMC_PythonMEs/actions?query=workflow%3ACI+branch%3Amaster)
+
 This code is intended as a plugin to the High Energy Physics code [MadGraph5_aMC@NLO](https://launchpad.net/madgraph5) (v2.8.1+).
 It offers a new output mode for the standalone computation of Matrix Elements of scattering amplitudes. This special `MG5aMC_PythonMEs` format is in pure Python.
 
